@@ -2,6 +2,7 @@ import { FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply } f
 import { CreateTaskController } from "./Controllers/CreateTaskController";
 import { ListTakssController } from "./Controllers/ListTasksController";
 import { DeleteTaskController } from "./Controllers/DeleteTaskController";
+import { UpdateTaskController } from "./Controllers/UpdateTaskController";
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions){
 
@@ -11,6 +12,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
 
     fastify.post("/task", async (request: FastifyRequest, reply: FastifyReply) => {
         return new CreateTaskController().handle(request, reply)
+    })
+
+    fastify.post("/updateTask", async (request: FastifyRequest, reply: FastifyReply) => {
+        return new UpdateTaskController().handle(request, reply)
     })
 
     fastify.get("/tasks", async (request: FastifyRequest, reply: FastifyReply) => {

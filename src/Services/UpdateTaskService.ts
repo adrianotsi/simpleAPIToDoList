@@ -2,13 +2,16 @@ import prismaClient from "../Prisma";
 import moment from 'moment';
 
 interface CreateTaskProps{
+    id: string;
     taskName: string;
     dueDate: Date;
     priority: string
+    status: boolean
 }
 
-class CreateTaskService{
-    async execute({taskName, dueDate, priority}: CreateTaskProps){
+class UpdateTaskService{
+    async execute({id,taskName, dueDate, priority, status}: CreateTaskProps){
+        console.log(taskName)
         if(!taskName || !dueDate || !priority){
             throw new Error("Preencha todos os campos")
         }
@@ -19,12 +22,15 @@ class CreateTaskService{
         }
 
 
-        const task = await prismaClient.task.create({
+        const task = await prismaClient.task.update({
+            where:{
+                id: id
+            },
             data:{
                 taskName,
                 dueDate,
                 priority,
-                status: true
+                status
             }
         })
 
@@ -32,4 +38,4 @@ class CreateTaskService{
     }
 }
 
-export { CreateTaskService }
+export { UpdateTaskService }
