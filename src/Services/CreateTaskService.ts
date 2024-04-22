@@ -12,8 +12,8 @@ class CreateTaskService{
         if(!taskName || !dueDate || !priority){
             throw new Error("Preencha todos os campos")
         }
-        const dueDateMoment = moment(dueDate);
-        const currentDate = moment();
+        const dueDateMoment = moment(dueDate).startOf('day');
+        const currentDate = moment().startOf('day');
         if (dueDateMoment.isBefore(currentDate)) {
             throw new Error("Data inválida");
         }
